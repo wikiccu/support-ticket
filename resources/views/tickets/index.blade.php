@@ -7,21 +7,21 @@
 		<div class="col-md-10 col-md-offset-1">
 	        <div class="panel panel-default">
 	        	<div class="panel-heading">
-	        		<i class="fa fa-ticket"> Tickets</i>
+	        		<i class="fa fa-ticket"> تیکت ها</i>
 	        	</div>
 
 	        	<div class="panel-body">
 	        		@if ($tickets->isEmpty())
-						<p>There are currently no tickets.</p>
+						<p>در حال حاظر تیکتی وجود ندارد</p>
 	        		@else
 		        		<table class="table">
 		        			<thead>
 		        				<tr>
-		        					<th>Category</th>
-		        					<th>Title</th>
-		        					<th>Status</th>
-		        					<th>Last Updated</th>
-		        					<th style="text-align:center" colspan="2">Actions</th>
+		        					<th>دسته بندی</th>
+		        					<th>عنوان </th>
+		        					<th>وضعیت</th>
+		        					<th>آخرین تغییرات</th>
+		        					<th style="text-align:center" colspan="2">امکانات</th>
 		        				</tr>
 		        			</thead>
 		        			<tbody>
@@ -48,12 +48,12 @@
 		        					</td>
 		        					<td>{{ $ticket->updated_at }}</td>
 		        					<td>
-		        						<a href="{{ url('tickets/' . $ticket->ticket_id) }}" class="btn btn-primary">Comment</a>
+		        						<a href="{{ url('tickets/' . $ticket->ticket_id) }}" class="btn btn-primary">کامنت</a>
 		        					</td>
 		        					<td>
 		        						<form action="{{ url('admin/close_ticket/' . $ticket->ticket_id) }}" method="POST">
 		        							{!! csrf_field() !!}
-		        							<button type="submit" class="btn btn-danger">Close</button>
+		        							<button type="submit" class="btn btn-danger">بستن</button>
 		        						</form>
 		        					</td>
 		        				</tr>
