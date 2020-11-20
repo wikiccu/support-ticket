@@ -15,15 +15,15 @@
 	        		
 	        		<div class="ticket-info">
 	        			<p>{{ $ticket->message }}</p>
-		        		<p>Categry: {{ $category->name }}</p>
+		        		<p>دسته بندی: {{ $category->name }}</p>
 		        		<p>
 	        			@if ($ticket->status === 'Open')
-    						Status: <span class="label label-success">{{ $ticket->status }}</span>
+    						وضعیت: <span class="label label-success">{{ $ticket->status }}</span>
     					@else
-    						Status: <span class="label label-danger">{{ $ticket->status }}</span>
+    						وضعیت: <span class="label label-danger">{{ $ticket->status }}</span>
     					@endif
 		        		</p>
-		        		<p>Created on: {{ $ticket->created_at->diffForHumans() }}</p>
+		        		<p>ایجاد شده در : {{ $ticket->created_at->diffForHumans() }}</p>
 	        		</div>
 
 	        		<hr>

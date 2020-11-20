@@ -78,6 +78,7 @@ class TicketsController extends Controller
             'priority'  => $request->input('priority'),
             'message'   => $request->input('message'),
             'status'    => "Open",
+            'file_path' => $request->input('attach')
         ]);
 
         $ticket->save();

@@ -65,7 +65,12 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <label for="attach">فایل ضمیمه</label>
+                                <input name="attach" type="file" class="form-control-file" id="attach">
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
                             <label for="message" class="col-md-4 control-label">پیغام</label>
 
@@ -79,7 +84,7 @@
                                 @endif
                             </div>
                         </div>
-
+                        
                         <div class="form-group ">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -87,6 +92,7 @@
                                 </button>
                             </div>
                         </div>
+                        
                     </form>
 	            </div>
 	        </div>

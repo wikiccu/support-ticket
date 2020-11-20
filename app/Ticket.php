@@ -12,7 +12,7 @@ class Ticket extends Model
 	 * @var  array
 	 */
     protected $fillable = [
-    	'user_id', 'category_id', 'ticket_id', 'title', 'priority', 'message', 'status'
+    	'user_id', 'category_id','file_path', 'ticket_id', 'title', 'priority', 'message', 'status'
     ];
 
     /**
@@ -37,5 +37,9 @@ class Ticket extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function task()
+    {
+        return $this->hasMany(Task::class);
     }
 }
