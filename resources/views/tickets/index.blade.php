@@ -46,10 +46,15 @@
 		        						<span class="label label-danger">{{ $ticket->status }}</span>
 		        					@endif
 		        					</td>
-		        					<td>{{ $ticket->updated_at }}</td>
+									<td>{{ $ticket->updated_at }}</td>
+									
+		        					<td>
+		        						<a href="{{ url('admin/new_task/' . $ticket->ticket_id) }}" class="btn btn-success">ایجاد وظیفه</a>
+		        					</td>
 		        					<td>
 		        						<a href="{{ url('tickets/' . $ticket->ticket_id) }}" class="btn btn-primary">کامنت</a>
 		        					</td>
+		        					
 		        					<td>
 		        						<form action="{{ url('admin/close_ticket/' . $ticket->ticket_id) }}" method="POST">
 		        							{!! csrf_field() !!}

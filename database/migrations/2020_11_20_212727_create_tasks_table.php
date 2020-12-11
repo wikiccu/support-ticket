@@ -14,8 +14,10 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
             $table->integer('user_id')->unsigned();
             $table->string('ticket_id');
+            $table->foreign('ticket_id')->references('ticket_id')->on('tickets');
             $table->string('file_path')->nullable();
             $table->string('priority');
             $table->text('message');

@@ -7,13 +7,13 @@
 		<div class="col-md-10 col-md-offset-1">
 	        <div class="panel panel-default">
 	        	<div class="panel-heading">
-	        		#{{ $ticket->ticket_id }} - {{ $ticket->title }}
-	        	</div>
-
+					#{{ $ticket->ticket_id }} - {{ $ticket->title }}
+				</div>
 	        	<div class="panel-body">
 	        		@include('includes.flash')
 	        		
 	        		<div class="ticket-info">
+
 	        			<p>{{ $ticket->message }}</p>
 		        		<p>دسته بندی: {{ $category->name }}</p>
 		        		<p>
@@ -24,10 +24,11 @@
     					@endif
 		        		</p>
 		        		<p>ایجاد شده در : {{ $ticket->created_at->diffForHumans() }}</p>
-	        		</div>
+					</div>
+					
+					<a href="{{ url('admin/new_task/' .$ticket->ticket_id) }}" class="btn btn-success">ایجاد وظیفه</a>
 
-	        		<hr>
-
+					<hr>
 	        		<div class="comments">
 	        			@foreach ($comments as $comment)
 	        				<div class="panel panel-@if($ticket->user->id === $comment->user_id){{"default"}}@else{{"success"}}@endif">

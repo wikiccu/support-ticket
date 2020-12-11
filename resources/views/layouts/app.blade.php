@@ -60,6 +60,8 @@
                     @else
                         @if (Auth::user()->is_admin)
                             <li><a href="{{ url('admin/tickets') }}">تیکت ها</a></li>
+                            <li><a href="{{ url('admin/tasks') }}">وظایف</a></li>
+                            
                         @else
                             <li><a href="{{ url('my_tickets') }}">تیکت های من</a></li>
                             <li><a href="{{ url('new_ticket') }}">تیکت جدید</a></li>

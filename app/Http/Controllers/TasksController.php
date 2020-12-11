@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Ticket;
-use App\Category;
+use App\Task;
 use App\Http\Requests;
-use App\Mailers\AppMailer;
+// use App\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +23,9 @@ class TasksController extends Controller
      */
     public function index()
     {
-    	$tickets = Ticket::paginate(10);
-        $categories = Category::all();
+    	$tasks = Task::paginate(10);
 
-        return view('tickets.index', compact('tickets', 'categories'));
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
@@ -35,12 +33,11 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userTickets()
+    public function userTasks()
     {
-        $tickets = Ticket::where('user_id', Auth::user()->id)->paginate(10);
-        $categories = Category::all();
+        $tasks = Task::where('user_id', Auth::user()->id)->paginate(10);
 
-        return view('tickets.user_tickets', compact('tickets', 'categories'));
+        return view('tasks.user_tasks', compact('tasks'));
     }
 
     /**
@@ -48,11 +45,10 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($ticket_id)
     {
-    	$categories = Category::all();
-
-        return view('tickets.create', compact('categories'));
+        $ticket_id=$ticket_id;
+        return view('tasks.create',compact('ticket_id'));
     }
 
     /**
@@ -61,31 +57,29 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, AppMailer $mailer)
+    public function store(Request $request)//, AppMailer $mailer
     {
         $this->validate($request, [
             'title'     => 'required',
-            'category'  => 'required',
             'priority'  => 'required',
             'message'   => 'required'
         ]);
 
-        $ticket = new Ticket([
+        $task = new Task([
             'title'     => $request->input('title'),
             'user_id'   => Auth::user()->id,
-            'ticket_id' => strtoupper(str_random(10)),
-            'category_id'  => $request->input('category'),
+            'ticket_id' => $request->input('ticket_id'),
             'priority'  => $request->input('priority'),
             'message'   => $request->input('message'),
             'status'    => "Open",
             'file_path' => $request->input('attach')
         ]);
 
-        $ticket->save();
+        $task->save();
 
-        $mailer->sendTicketInformation(Auth::user(), $ticket);
+        // $mailer->sendTicketInformation(Auth::user(), $ticket);
 
-        return redirect()->back()->with("status", "A ticket with ID: #$ticket->ticket_id has been opened.");
+        return redirect()->back()->with("status", "A ticket with ID: #$task->ticket_id has been opened.");
     }
 
     /**
@@ -94,34 +88,33 @@ class TasksController extends Controller
      * @param  int  $ticket_id
      * @return \Illuminate\Http\Response
      */
-    public function show($ticket_id)
+    public function show($task_id)
     {
-        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        $task = Task::where('id', $task_id)->firstOrFail();
 
-        $comments = $ticket->comments;
+        $comments = $task->comments;
 
-        $category = $ticket->category;
 
-        return view('tickets.show', compact('ticket', 'category', 'comments'));
+        return view('tasks.show', compact('task', 'comments'));
     }
 
     /**
-     * Close the specified ticket.
+     * Close the specified task.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function close($ticket_id, AppMailer $mailer)
+    public function close($task_id)//, AppMailer $mailer
     {
-        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        $task = Task::where('id', $task_id)->firstOrFail();
 
-        $ticket->status = 'Closed';
+        $task->status = 'Closed';
 
-        $ticket->save();
+        $task->save();
 
-        $ticketOwner = $ticket->user;
+        $taskOwner = $task->user;
 
-        $mailer->sendTicketStatusNotification($ticketOwner, $ticket);
+        // $mailer->sendtaskStatusNotification($taskOwner, $task);
 
         return redirect()->back()->with("status", "The ticket has been closed.");
     }

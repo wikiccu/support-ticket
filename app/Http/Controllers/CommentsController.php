@@ -6,7 +6,7 @@ use App\User;
 use App\Ticket;
 use App\Comment;
 use App\Http\Requests;
-use App\Mailers\AppMailer;
+// use App\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +18,7 @@ class CommentsController extends Controller
 	 * @param  AppMailer $mailer
 	 * @return Response
 	 */
-    public function postComment(Request $request, AppMailer $mailer)
+    public function postComment(Request $request)//, AppMailer $mailer
     {
     	$this->validate($request, [
             'comment'   => 'required'
@@ -32,9 +32,9 @@ class CommentsController extends Controller
 
         // send mail if the user commenting is not the ticket owner
         if ($comment->ticket->user->id !== Auth::user()->id) {
-        	$mailer->sendTicketComments($comment->ticket->user, Auth::user(), $comment->ticket, $comment);
+        	// $mailer->sendTicketComments($comment->ticket->user, Auth::user(), $comment->ticket, $comment);
         }
         
-        return redirect()->back()->with("status", "Your comment has be submitted.");
+        return redirect()->back()->with("status", "کامنت شما ارسال شد");
     }
 }

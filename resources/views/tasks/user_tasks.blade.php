@@ -26,13 +26,13 @@
 		        			<tbody>
 		        			@foreach ($tickets as $ticket)
 								<tr>
-		        					<td>
+		        					{{-- <td>
 		        					@foreach ($categories as $category)
 		        						@if ($category->id === $ticket->category_id)
 											{{ $category->name }}
 		        						@endif
 		        					@endforeach
-		        					</td>
+		        					</td> --}}
 		        					<td>
 		        						<a href="{{ url('tickets/'. $ticket->ticket_id) }}">
 		        							#{{ $ticket->ticket_id }} - {{ $ticket->title }}

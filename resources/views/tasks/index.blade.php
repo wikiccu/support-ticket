@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'All Tickets')
+@section('title', 'کلیه وظایف')
 
 @section('content')
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 	        <div class="panel panel-default">
 	        	<div class="panel-heading">
-	        		<i class="fa fa-ticket"> تیکت ها</i>
+	        		<i class="fa fa-ticket"> وظایف </i>
 	        	</div>
 
 	        	<div class="panel-body">
-	        		@if ($tickets->isEmpty())
-						<p>در حال حاظر تیکتی وجود ندارد</p>
+	        		@if ($tasks->isEmpty())
+						<p>در حال حاظر وظیفه ای وجود ندارد</p>
 	        		@else
 		        		<table class="table">
 		        			<thead>
 		        				<tr>
-		        					<th>دسته بندی</th>
 		        					<th>عنوان </th>
 		        					<th>وضعیت</th>
 		        					<th>آخرین تغییرات</th>
@@ -25,33 +24,33 @@
 		        				</tr>
 		        			</thead>
 		        			<tbody>
-		        			@foreach ($tickets as $ticket)
+		        			@foreach ($tasks as $task)
 								<tr>
-		        					<td>
+		        					{{-- <td>
 		        					@foreach ($categories as $category)
-		        						@if ($category->id === $ticket->category_id)
+		        						@if ($category->id === $task->category_id)
 											{{ $category->name }}
 		        						@endif
 		        					@endforeach
-		        					</td>
+		        					</td> --}}
 		        					<td>
-		        						<a href="{{ url('tickets/'. $ticket->ticket_id) }}">
-		        							#{{ $ticket->ticket_id }} - {{ $ticket->title }}
+		        						<a href="{{ url('admin/tasks/'. $task->id) }}">
+		        							#{{ $task->task_id }} - {{ $task->title }}
 		        						</a>
 		        					</td>
 		        					<td>
-		        					@if ($ticket->status === 'Open')
-		        						<span class="label label-success">{{ $ticket->status }}</span>
+		        					@if ($task->status === 'Open')
+		        						<span class="label label-success">{{ $task->status }}</span>
 		        					@else
-		        						<span class="label label-danger">{{ $ticket->status }}</span>
+		        						<span class="label label-danger">{{ $task->status }}</span>
 		        					@endif
 		        					</td>
-		        					<td>{{ $ticket->updated_at }}</td>
+		        					<td>{{ $task->updated_at }}</td>
 		        					<td>
-		        						<a href="{{ url('tickets/' . $ticket->ticket_id) }}" class="btn btn-primary">کامنت</a>
+		        						<a href="{{ url('admin/tasks/' . $task->id) }}" class="btn btn-primary">کامنت</a>
 		        					</td>
 		        					<td>
-		        						<form action="{{ url('admin/close_ticket/' . $ticket->ticket_id) }}" method="POST">
+		        						<form action="{{ url('admin/close_task/' . $task->id) }}" method="POST">
 		        							{!! csrf_field() !!}
 		        							<button type="submit" class="btn btn-danger">بستن</button>
 		        						</form>
@@ -61,7 +60,7 @@
 		        			</tbody>
 		        		</table>
 
-		        		{{ $tickets->render() }}
+		        		{{ $tasks->render() }}
 		        	@endif
 	        	</div>
 	        </div>
